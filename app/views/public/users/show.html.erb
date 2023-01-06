@@ -1,0 +1,62 @@
+<% if flash[:notice] %>
+<%= notice %>
+<% end %>
+<div class="m-5">
+  <div class="container">
+    <div class="row">
+
+  <div class="col-3">
+    <%= image_tag @user.get_profile_image(200,200), class: "rounded-circle" %>
+    </div>
+    <div class="col-3">
+    <h3><%= @user.name %></h3>
+    <p class="text-small"><%= link_to @user.followings.count,followings_public_user_path(@user) %>フォロー<%= link_to @user.followers.count,followers_public_user_path(@user) %>フォロワー</p>
+  <% if @user==current_user %>
+    <%= link_to edit_public_user_path(@user.id) do %>
+    <button class="btn btn-light">プロフィール編集</button>
+    <% end %>
+  <% else %>
+  <% if @user.is_followed_by?(current_user) %>
+    <%= link_to public_user_relationships_path(@user), method: :delete do %>
+    <button class="btn btn-danger">フォロー解除</button>
+    <% end %>
+  <% else %>
+    <%= link_to public_user_relationships_path(@user), method: :post do %>
+    <button class="btn btn-primary">フォローする</button>
+    <% end %>
+  <% end %>
+  <% end %>
+  </div>
+
+<div class="col-4">
+<h3><i class="fa-solid fa-magnifying-glass"></i>ユーザー検索</h3>
+<%= form_with url: search_public_users_path, method: :get, local: true do |f| %>
+  <%= f.text_field :name,size: 30 %>
+  <%= f.submit :検索 %>
+<% end %>
+  <strong>知り合いをフォローして投稿を共有しよう！</strong>
+</div>
+
+  <div class="col-2">
+    <% if @user==current_user %>
+      <button class="btn btn-light"><%= link_to "♡いいねした投稿", likes_public_user_path(@user) %></button>
+    <% end %>
+  </div>
+  </div>
+</div>
+
+<div class="mt-5">
+<h4 class="text-center"><%= @user.name %>さんの投稿一覧</h4>
+</div>
+<div class="container mt-3">
+  <div class="row">
+<% @posts.each do |post| %>
+  <div class="d-flex justify-content-between m-1">
+    <%= link_to public_post_path(post.id) do %>
+    <%= image_tag post.post_image,size: "370x260" %>
+    <% end %>
+  </div>
+<% end %>
+    </div>
+  </div>
+</div>

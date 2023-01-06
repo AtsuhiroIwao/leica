@@ -1,0 +1,30 @@
+<div class="m-5">
+    <div class="container">
+    <div class="row">
+        <div class="col-6">
+        <h2>タイムライン</h>
+        </div>
+
+  <div class="col-6">
+    <h4><i class="fa-solid fa-magnifying-glass"></i>投稿検索</h4>
+<%= form_with url: search_public_posts_path, local: true, method: :get do |f| %>
+    <%= f.text_field :keyword,size: 30 %>
+    <%= f.submit "検索" %>
+  <% end %>
+  <strong>ブランドやメーカーごとにお気に入りの投稿を見つけよう！</strong>
+  </div>
+  </div>
+  </div>
+
+<div class="container mt-5">
+  <div class="row">
+<% @posts.each do |post| %>
+<div class="d-flex justify-content-between m-1">
+    <%= link_to public_post_path(post.id) do %>
+    <%= image_tag post.post_image,size: "370x250" %>
+    <% end %>
+ </div>
+<% end %>
+</div>
+</div>
+</div>

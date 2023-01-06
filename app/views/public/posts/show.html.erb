@@ -1,0 +1,55 @@
+<% if flash[:notice] %>
+  <div class="show" role="alert">
+    <div class="created">
+<%= notice %>
+<% end %>
+<div class="m-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-8">
+        <h5><%= @post.user.name %>さんの投稿</h5>
+        <strong>メーカー"<%= @post.makers %>"</strong>
+        <strong>ブランド"<%= @post.brands %>"</strong>
+          <%= image_tag @post.post_image,size: "600x400" %>
+          <h4><%= @post.body %></h4>
+          <%= form_with model: @post,url:public_post_path(@post),method: :delete do |f| %>
+          <% if @post.user == current_user %>
+          <%= link_to "削除", public_post_path(@post), method: :delete %>
+          <% end %>
+          <% end %>
+
+          <% if @post.liked_by?(current_user) %>
+            <p><%= link_to public_post_likes_path(@post), method: :delete do %>
+              ♥<%= @post.likes.count %> いいね
+                <% end %>
+            </p>
+          <% else %>
+            <p>
+              <%= link_to public_post_likes_path(@post), method: :post do %>
+              ♡<%= @post.likes.count %> いいね
+              <% end %>
+            </p>
+          <% end %>
+      </div>
+
+      <div class="col-4">
+        <div>
+          <%= form_with model: [@post, @comment],url:public_post_comments_path(@post.id) do |f| %>
+          <%= f.text_area :reply, rows: '10', placeholder: "コメントをここに" %>
+          <button class="btn btn-light btn-md">コメントする</button>
+          <% end %>
+        </div>
+        <div>
+          <p>コメント件数：<%= @post.comments.count %>件</p>
+            <% @post.comments.each do |comment| %>
+
+              <h6><%= comment.user.name %><%= comment.created_at.strftime('%Y/%m/%d') %></h6>
+              <strong><%= comment.reply %></strong>
+              <% if comment.user == current_user %>
+                <button class="btn btn-light btn-sm ml-3"><%= link_to "削除する", public_post_comment_path(comment.post,comment), method: :delete %></button>
+                <% end %>
+              <% end %>
+            </div>
+    </div>
+  </div>
+</div>

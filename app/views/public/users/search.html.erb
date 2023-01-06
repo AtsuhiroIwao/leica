@@ -1,0 +1,29 @@
+<div class="m-5">
+
+<h3>ユーザー検索結果"<%= @user %>"</h3>
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-8">
+      <% unless @user.present? %>
+        <strong>※該当するユーザーがいません</strong>
+      <% end %>
+      
+<table class="table table-striped">
+  <tr>
+  <% @users.each do |user| %>
+    <ul>
+      <th><li><%= image_tag user.get_profile_image(120,120), class: "rounded-circle" %></li></th>
+      <td>
+        <%= link_to public_user_path(user.id) do %>
+        <h4 class="mark"><%= user.name %></h4>
+        <% end %>
+      </td>
+    </ul>
+  </tr>
+  <% end %>
+</table>
+    </div>
+  </div>
+</div>
+</div>

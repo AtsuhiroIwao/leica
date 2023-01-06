@@ -1,0 +1,25 @@
+<h2 class="m-5">User一覧</h2>
+<div class="container">
+  <div class="row">
+    <div class="col-9">
+<div class="m-5">
+<table class="table">
+  <tr class="table-secondary">
+    <th>会員ID</th>
+    <th>氏名</th>
+    <th>メールアドレス</th>
+</div>
+  </tr>
+  <% @users.each do |user| %>
+  <tr>
+    <td><%= user.id %></td>
+    <td>
+      <%= user.name %>
+      </td>
+    <td><%= user.email %></td>
+  </tr>
+  <% end %>
+</table>
+</div>
+</div>
+</div>

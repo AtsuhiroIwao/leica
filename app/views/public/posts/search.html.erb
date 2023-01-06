@@ -1,0 +1,20 @@
+<div class="m-5">
+
+<h2>検索結果 "<%= @keyword %>"</h2>
+
+<div class="mt-5">
+  <h4 class="text-center mark">検索結果写真</h4>
+</div>
+
+<div class="container mt-3">
+  <div class="row">
+    <% @posts.each do |post| %>
+      <div class="d-flex justify-content-between m-1">
+        <%= link_to public_post_path(post.id) do %>
+        <%= image_tag post.post_image,size: "350x250" %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
+</div>

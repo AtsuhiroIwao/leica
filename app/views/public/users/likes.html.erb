@@ -1,0 +1,14 @@
+<div class="m-5">
+  <h4>いいねした投稿一覧</h4>
+  <div class="container mt-5">
+  <div class="row">
+<% @like_posts.each do |post| %>
+<div class="d-flex justify-content-between m-1">
+<%= link_to public_post_path(post.id) do %>
+    <%= image_tag post.post_image,size: "370x260" %>
+    <% end %>
+    </div>
+<% end %>
+</div>
+</div>
+</div>
