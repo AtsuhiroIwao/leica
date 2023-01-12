@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+root to:'homes#top'
+
   namespace :admin do
     resources :users, only:[:index]
   end
@@ -39,9 +41,7 @@ end
   sessions: "admin/sessions"
   }
 
-  root to:'public/posts#index'
 
-  get "homes/top" => "homes#top", as: "top"
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
