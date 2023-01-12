@@ -1,8 +1,5 @@
-<% if flash[:notice] %>
-  <div class="show" role="alert">
-    <div class="created">
-<%= notice %>
-<% end %>
+<div class="show" role="alert">
+  <div class="created">
 <div class="m-5">
   <div class="container">
     <div class="row">
@@ -11,7 +8,9 @@
         <strong>メーカー"<%= @post.makers %>"</strong>
         <strong>ブランド"<%= @post.brands %>"</strong>
           <%= image_tag @post.post_image,size: "600x400" %>
-          <h4><%= @post.body %></h4>
+          <div class="m-2">
+            <h4><%= @post.body %></h4>
+          </div>
           <%= form_with model: @post,url:public_post_path(@post),method: :delete do |f| %>
           <% if @post.user == current_user %>
           <%= link_to "削除", public_post_path(@post), method: :delete %>
